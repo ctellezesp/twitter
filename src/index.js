@@ -13,10 +13,56 @@ serviceWorker.unregister();
 
 
 
-class Twitter extends React.Component{
-	constructor(props){
-		super(props);
+class TodoItem extends React.Component {
+	constructor() {
+		super();
 	}
+    render() {
+        return (
+            <ul>
+    			
+                    {
+                        ({ list }) => // Recibimos los parámetros enviados desde el Provider
+                            list.map((item, key) =>
+                                <li key={key}>
+                                    {item}
+          
+                                </li>
+                            )
+                    }	
+                    <li>{ this.state }</li>
+ 				
+            </ul>
+        );
+    }
+}
+
+class Twitter extends React.Component{
+    constructor() {
+        super();
+        this.createItem = this.createItem.bind(this);
+
+        this.itemInput = React.createRef();
+
+        this.state = {
+            list: []
+        };
+    }
+
+    createItem() {
+        const itemValue = this.itemInput.current.value;
+        if (itemValue) {
+            this.setState({
+                list: [
+                    ...this.state.list,
+                    itemValue
+                ],
+
+            }); 
+            this.itemInput.current.value = '';
+            this.itemInput.current.focus();
+        }
+    }
 
 	render(){
 		return(
@@ -34,10 +80,10 @@ class Twitter extends React.Component{
 							<img className="img-profile" src="http://www.femalefirst.co.uk/image-library/square/500/1/1024x5347096774193549origin0x11cristianoronaldo.jpg" />
 						</div>
 						<div className="myTweet">
-							<textarea className="post-tweet" type="text" placeholder="What's Happening?"></textarea>
+							<textarea className="post-tweet" type="text" placeholder="What's Happening?" ref={this.itemInput}></textarea>
 						</div>
 						<div className="btn">
-							<button className="btn-tweet">Tweet</button>
+							<button className="btn-tweet" onClick={this.createItem}>Tweet</button>
 						</div>
 					</div>
 					<div className="tweets">
@@ -57,6 +103,7 @@ class Twitter extends React.Component{
 								</div>
 							</div>
 						</div>
+		      			<TodoItem/>
 					</div>
 				</div>
 			</div>
