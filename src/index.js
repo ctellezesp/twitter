@@ -11,11 +11,22 @@ ReactDOM.render(<App />, document.getElementById('root'));
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
 
-
-
 class Twitter extends React.Component{
 	constructor(props){
 		super(props);
+		this.myRef = React.createRef();
+		this.handleClick = this.handleClick.bind(this);
+		this.state = {
+			tweets: []
+		}
+	}
+
+	handleClick(){
+		//this.setState({tweets: [...this.state.tweets, {user: '@cristiano', date: new Date(), post: this.myRef.current.value}]});
+		this.state.tweets.push({user: '@cristiano', date: new Date(), post: this.myRef.current.value});
+		console.log(this.state.tweets);
+		this.myRef.current.value = '';
+        this.myRef.current.focus();
 	}
 
 	render(){
@@ -34,29 +45,31 @@ class Twitter extends React.Component{
 							<img className="img-profile" src="http://www.femalefirst.co.uk/image-library/square/500/1/1024x5347096774193549origin0x11cristianoronaldo.jpg" />
 						</div>
 						<div className="myTweet">
-							<textarea className="post-tweet" type="text" placeholder="What's Happening?"></textarea>
+							<textarea className="post-tweet" type="text" placeholder="What's Happening?" ref={this.myRef}></textarea>
 						</div>
 						<div className="btn">
-							<button className="btn-tweet">Tweet</button>
+							<button className="btn-tweet" onClick={this.handleClick}>Tweet</button>
 						</div>
 					</div>
 					<div className="tweets">
-						<div className="the-tweet">
-								<div className="img-tweet">
-									<img className="img-profile" src="http://www.femalefirst.co.uk/image-library/square/500/1/1024x5347096774193549origin0x11cristianoronaldo.jpg" />
-								</div>
-							<div className="body-tweet">
-								<div className="header-tweet">
-									<span className="username">@cristiano</span>
-									<span className="date">11-03-2019</span>
-								</div>
-								<div className="content-tweet">
-									<span className="text-tweet">
-										There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. 
-									</span>
+						{this.state.tweets.forEach((item) =>
+								<div className="the-tweet">
+									<div className="img-tweet">
+										<img className="img-profile" src="http://www.femalefirst.co.uk/image-library/square/500/1/1024x5347096774193549origin0x11cristianoronaldo.jpg" />
+									</div>
+								<div className="body-tweet">
+									<div className="header-tweet">
+										<span className="username">{item.user}</span>
+										<span className="date">{item.date}</span>
+									</div>
+									<div className="content-tweet">
+										<span className="text-tweet">
+											{item}
+										</span>
+									</div>
 								</div>
 							</div>
-						</div>
+						)}
 					</div>
 				</div>
 			</div>
