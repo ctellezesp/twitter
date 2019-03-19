@@ -22,12 +22,12 @@ class Twitter extends React.Component{
 	}
 
 	handleClick(){
-		//this.setState({tweets: [...this.state.tweets, {user: '@cristiano', date: new Date(), post: this.myRef.current.value}]});
-		this.state.tweets.push({user: '@cristiano', date: new Date(), post: this.myRef.current.value});
+		this.setState({tweets: [...this.state.tweets, {user: '@cristiano', date: new Date().toString(), post: this.myRef.current.value}]});
 		console.log(this.state.tweets);
 		this.myRef.current.value = '';
         this.myRef.current.focus();
 	}
+
 
 	render(){
 		return(
@@ -52,19 +52,19 @@ class Twitter extends React.Component{
 						</div>
 					</div>
 					<div className="tweets">
-						{this.state.tweets.forEach((item) =>
-								<div className="the-tweet">
-									<div className="img-tweet">
-										<img className="img-profile" src="http://www.femalefirst.co.uk/image-library/square/500/1/1024x5347096774193549origin0x11cristianoronaldo.jpg" />
-									</div>
+						{this.state.tweets.map((tweet, key) => 
+							<div className="the-tweet" key={key}>
+								<div className="img-tweet">
+									<img className="img-profile" src="http://www.femalefirst.co.uk/image-library/square/500/1/1024x5347096774193549origin0x11cristianoronaldo.jpg" />
+								</div>
 								<div className="body-tweet">
 									<div className="header-tweet">
-										<span className="username">{item.user}</span>
-										<span className="date">{item.date}</span>
+										<span className="username">{tweet.user}</span>
+										<span className="date">{tweet.date}</span>
 									</div>
 									<div className="content-tweet">
 										<span className="text-tweet">
-											{item}
+											{tweet.post}
 										</span>
 									</div>
 								</div>
