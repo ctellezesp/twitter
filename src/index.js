@@ -24,13 +24,13 @@ class Twitter extends React.Component{
 	}
 
 	componentDidMount(){
-		fetch("http://10.24.50.178:3001/tweets")
+		fetch("https://still-garden-88285.herokuapp.com/draft_tweets")
 		.then(res => res.json())
 		.then(
 			(result) => {
 				this.setState({
 					isLoaded: true,
-					tweets: result.tweets
+					tweets: result.draft_tweets
 				})
 			},
 			(error) => {
@@ -54,7 +54,7 @@ class Twitter extends React.Component{
         let newTweet = {
         	user_name: 'Carlos',
         	avatar: 'https://avatars0.githubusercontent.com/u/26472750?s=460&v=4',
-        	tweet_content: this.myRef.current.value
+        	description: this.myRef.current.value
         }
 
         let headers = {};
@@ -66,11 +66,11 @@ class Twitter extends React.Component{
         	body: JSON.stringify(newTweet)
         }
 
-        fetch("http://10.24.50.178:3001/tweets", options)
+        fetch("https://still-garden-88285.herokuapp.com/draft_tweets", options)
         .then(res => res.json())
         .then(
         	(result) =>{
-        		let newTweet = result.tweet;
+        		let newTweet = result.draft_tweets;
         		let tweets = this.state.tweets.slice();
         		this.setState({
         			isLoaded: true,
@@ -85,6 +85,8 @@ class Twitter extends React.Component{
         	}
         )
 
+        this.myRef.current.value = '';
+        this.myRef.current.focus();
 
 	}
 
@@ -108,7 +110,7 @@ class Twitter extends React.Component{
 						</div>
 						<div className="content-tweet">
 							<span className="text-tweet">
-								{tweet.tweet_content}
+								{tweet.description}
 							</span>
 						</div>
 					</div>

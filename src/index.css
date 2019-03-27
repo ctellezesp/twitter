@@ -58,6 +58,7 @@ body{
 	display: flex;
 	flex-direction: column;
 	width: 70%;
+	padding-right: 2%;
 }
 
 .bar{
